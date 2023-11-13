@@ -13,12 +13,13 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "produto")
+@IdClass(ProdutoIdClass.class)
 public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
-    private Long id;
+    private ProdutoIdClass id;
     @Column(nullable = false, unique = true)
     private String nome;
     @Positive
@@ -36,8 +37,12 @@ public class Produto {
     private Double peso;
     @Column(nullable = false)
     private String medida;
+    @ManyToOne
     @Column(nullable = false)
-    private String fabricante;
+    @JoinColumn(name = "idFabricante", referencedColumnName = "idFabricante")
+    private Fabricante fabricante;
+    @ManyToOne
     @Column(nullable = false)
-    private String categoria;
+    @JoinColumn(name = "idCategoria", referencedColumnName = "idCategoria")
+    private Categoria categoria;
 }
